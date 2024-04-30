@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import Square from '../square/Square';
 import calculateWinner from '../../utils/CalculateWinner';
+import isGameDraw from '../../utils/IsGameDraw';
 
 export default function Board() {
 	const squaresLength = 9;
+	const playerOneTurnValue = 'X';
+	const playerTwoTurnValue = 'O';
+	const initialSquares = Array(squaresLength).fill(null);
 
-	const [squares, setSquares] = useState(Array(squaresLength).fill(null));
+	const [squares, setSquares] = useState(initialSquares);
 	const [xIsNext, setXIsNext] = useState(true);
 
 	function handleClick(i) {
@@ -15,9 +19,9 @@ export default function Board() {
 
 		const nextSquares = [...squares];
 		if (xIsNext) {
-			nextSquares[i] = 'X';
+			nextSquares[i] = playerOneTurnValue;
 		} else {
-			nextSquares[i] = 'O';
+			nextSquares[i] = playerTwoTurnValue;
 		}
 		setSquares(nextSquares);
 		setXIsNext(!xIsNext);
@@ -26,15 +30,13 @@ export default function Board() {
 	const winner = calculateWinner(squares);
 	let status;
 	const filledSquaresCount = squares.filter((square) => square !== null).length;
-	console.log('filledSquarsCount: ', filledSquaresCount);
-	console.log('winner: ', winner);
-	if (winner === null && filledSquaresCount === squaresLength) {
+
+	if (isGameDraw(winner, filledSquaresCount, squaresLength)) {
 		status = 'DRAW !';
-	}
-	else if (winner) {
+	} else if (winner) {
 		status = 'Winner: ' + winner;
 	} else {
-		status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+		status = 'Next player: ' + (xIsNext ? playerOneTurnValue : playerTwoTurnValue);
 	}
 
 	return (
