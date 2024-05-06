@@ -29,4 +29,6 @@ jobs:
           start: npm run start:prod
           wait-on: http://localhost:3000
       - name: Deploy 
-        run: gh-pages -d build
+        uses: JamesIves/github-pages-deploy-action@v4
+        with: 
+          folder: build
