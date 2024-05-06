@@ -9,12 +9,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
+    "serve": "^14.2.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "start:prod": "npm run build && serve -s build", 
+    "start:prod": "npm run build && serve -s build",
     "test": "react-scripts test",
     "test:e2e": "cypress run",
     "cypress": "cypress open",
