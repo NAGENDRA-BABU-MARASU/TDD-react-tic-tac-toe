@@ -14,7 +14,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "start:prod": "npm run build && serve -s build", 
     "test": "react-scripts test",
+    "test:e2e": "cypress run",
     "cypress": "cypress open",
     "eslint": "eslint './**/*.{js,jsx}'",
     "eject": "react-scripts eject"
