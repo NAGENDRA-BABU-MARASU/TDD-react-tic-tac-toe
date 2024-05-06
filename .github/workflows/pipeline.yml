@@ -27,3 +27,7 @@ jobs:
           command: npm run test:e2e
           start: npm run start:prod
           wait-on: http://localhost:3000
+      - name: Deploy 
+        uses: JamesIves/github-pages-deploy-action@v4
+        with: 
+          folder: build
