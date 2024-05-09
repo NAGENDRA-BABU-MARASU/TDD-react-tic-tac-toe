@@ -1,11 +1,11 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import Board from './components/board/Board'
+import Game from './components/game/Game'
 
 describe('<App />', () => {
-  it('redners the board component', () => {
-    render(<Board />)
+  it('redners the game component', () => {
+    render(<Game />)
 
-    expect(screen.getByTestId('game-board')).toBeInTheDocument()
+    expect(screen.getByTestId('game')).toBeInTheDocument()
   })
 })

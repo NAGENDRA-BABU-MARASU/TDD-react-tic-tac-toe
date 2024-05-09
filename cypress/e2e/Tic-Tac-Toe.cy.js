@@ -1,6 +1,6 @@
 const appUrl = 'http://localhost:3000/'
 
-describe('renders the game board correctly', () => {
+describe('renders the game board', () => {
   beforeEach(() => {
     cy.visit(appUrl)
   })
@@ -24,7 +24,7 @@ describe('renders the game board correctly', () => {
   })
 })
 
-describe('plays the game correctly', () => {
+describe('playing the game', () => {
   beforeEach(() => {
     cy.visit(appUrl)
   })
@@ -103,5 +103,45 @@ describe('plays the game correctly', () => {
     cy.get('[data-testid="square7"]').click() // X
 
     cy.get('[data-testid="status"]').should('have.text', expectedStatusText)
+  })
+})
+
+describe('stores the history of moves', () => {
+  beforeEach(() => {
+    cy.visit(appUrl)
+  })
+
+  it('the game component should render', () => {
+    cy.get('[data-testid="game"]').should('exist')
+  })
+
+  it('the ordered list game-info component should render', () => {
+    cy.get('[data-testid="game-info"]').should('exist')
+  })
+
+  it('the game moves should be restored to game start phase when go to game start is clicked', () => {
+    const expectedTextContent = ''
+
+    cy.get('[data-testid="square0"]').click()
+    cy.get('[data-testid="square1"]').click()
+    cy.get('[data-testid="square2"]').click()
+
+    cy.get('[data-testid="moveButton0"]').click()
+
+    for(let squareNumber = 0; squareNumber < 9; squareNumber++){
+      cy.get(`[data-testid="square${squareNumber}"]`).should('have.text', expectedTextContent)
+    }
+  })
+
+  it('go to move # buttons should replace the game history correctly', () => {
+    cy.get('[data-testid="square0"]').click()
+    cy.get('[data-testid="square1"]').click()
+    cy.get('[data-testid="square2"]').click()
+    cy.get('[data-testid="square3"]').click()
+
+    cy.get('[data-testid="moveButton2"]').click()
+
+    cy.get('[data-testid="square0"]').should('have.text', 'X')
+    cy.get('[data-testid="square1"]').should('have.text', 'O')
   })
 })
